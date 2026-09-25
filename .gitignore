@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.tools/
+.qa/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
