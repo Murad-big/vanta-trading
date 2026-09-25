@@ -38,3 +38,16 @@ Fidelity ledger:
 Above-the-fold English copy matches the hero reference. Intentional additions are the motion control and Russian translation. The ticker contents move continuously, so their screenshot positions vary. The exact generated font is approximated with Manrope; demo chart data is deterministic and the last candle updates with simulated prices. No material layout or missing-asset issues remained in the verified screens.
 
 Functional browser checks covered opening/closing a position, P&L and balance display, pending limit placement/cancellation, invalid amounts, changing markets/timeframes/leverage/side, language switching, mobile navigation, terminal expansion and Escape, and demo reset. A fresh production-preview tab reported no browser warnings or errors. Seven automated order-engine tests passed; the GitHub workflow also passed.
+
+## Motion upgrade — September 25, 2026
+
+At the user's request, the existing design gained much more motion inspired by the particle field and depth of the Reya reference. This is an intentional extension of the original static concepts: the brand, palette, content and trading workflow remain intact.
+
+- The hero combines a moving point wave, local cursor repulsion, a floating ribbon with pointer perspective and scroll-linked transforms, and three independently moving market symbols.
+- Headlines reveal in staggered letters/words. CTAs have magnetic movement and a light sweep. Section entry includes blur/translation; the terminal settles from a perspective tilt.
+- Charts reveal candles in sequence. Quotes interpolate between simulated updates. Positions, feedback and mobile navigation animate on entry.
+- The animation pause remains available at the top of the page, market strip and footer. Both manual pause and emulated system reduced motion produced zero running CSS animations in the browser. With reduced motion, the particle canvas is hidden and headings remain fully visible.
+- Desktop frame sampling in the in-app browser, with the heavy reference tab closed, measured a median 16.7 ms and 95th percentile 17.1 ms across 85 sampled intervals. These are local observations, not a device-independent performance guarantee.
+- Verified the 390px Russian mobile layout, menu open/close, pause, and trading interactions. The pointer halo is disabled on narrow/coarse-pointer screens. Particle drawing also stops offscreen and in hidden documents.
+
+No new image assets or external dependencies were needed for this motion upgrade.

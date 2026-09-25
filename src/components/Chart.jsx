@@ -30,7 +30,7 @@ export default function Chart({ market, timeframe, price, t }) {
       <g className="candles" key={`${market.symbol}-${timeframe}`}>{data.map((d, i) => {
         const x = 22 + i * gap;
         const up = d.close >= d.open;
-        return <g key={i} fill={up ? '#c5fa67' : '#8a8f8b'}><line x1={x} y1={y(d.high)} x2={x} y2={y(d.low)} stroke={up ? '#c5fa67' : '#8a8f8b'} strokeWidth="1"/><rect x={x - 3.1} y={y(Math.max(d.open, d.close))} width="6.2" height={Math.max(1.5, Math.abs(y(d.open) - y(d.close)))}/><rect x={x - 3.4} y={352 - d.volume * 0.62} width="6.8" height={d.volume * 0.62} opacity={up ? '.26' : '.18'}/><rect x={x - 5.5} y="0" width="11.1" height="354" fill="transparent" onMouseEnter={() => setHover(i)}/></g>;
+        return <g className="chart-candle" style={{ '--candle-delay': `${i * 9}ms` }} key={i} fill={up ? '#c5fa67' : '#8a8f8b'}><line x1={x} y1={y(d.high)} x2={x} y2={y(d.low)} stroke={up ? '#c5fa67' : '#8a8f8b'} strokeWidth="1"/><rect x={x - 3.1} y={y(Math.max(d.open, d.close))} width="6.2" height={Math.max(1.5, Math.abs(y(d.open) - y(d.close)))}/><rect x={x - 3.4} y={352 - d.volume * 0.62} width="6.8" height={d.volume * 0.62} opacity={up ? '.26' : '.18'}/><rect x={x - 5.5} y="0" width="11.1" height="354" fill="transparent" onMouseEnter={() => setHover(i)}/></g>;
       })}</g>
       <line x1="14" y1={y(price)} x2={plotRight} y2={y(price)} stroke="#c5fa67" strokeDasharray="3 5" opacity=".45"/>
       <rect x={plotRight + 3} y={y(price) - 10} width="71" height="20" rx="3" fill="#c5fa67"/><text x={plotRight + 38} y={y(price) + 3.5} textAnchor="middle" className="price-label">{number(price)}</text>

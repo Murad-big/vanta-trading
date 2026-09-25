@@ -11,5 +11,6 @@ import '@fontsource/manrope/cyrillic-800.css';
 import '@fontsource/ibm-plex-mono/latin-400.css';
 import App from './App.jsx';
 import './styles.css';
+import './motion/motion.css';
 
 createRoot(document.getElementById('root')).render(<React.StrictMode><App /></React.StrictMode>);

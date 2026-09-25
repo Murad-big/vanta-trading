@@ -21,12 +21,15 @@ npm run preview
 
 ## Included
 
-- Original metallic ribbon artwork, floating animation, rotating type, scrolling market ticker and section reveals.
+- Original metallic ribbon with pointer-driven perspective, breathing scale and scroll parallax.
+- An animated particle-wave canvas with cursor repulsion and independently floating market symbols.
+- Letter-by-letter heading entrances, staggered section reveals, a cinematic terminal entrance, magnetic buttons, hover light sweeps and a scroll progress indicator.
+- Staggered chart candles, interpolated quote changes, animated positions and order feedback.
 - Four demo markets: BTC, ETH, SOL and AVAX; four chart timeframes with candle inspection.
 - A $10,000 virtual balance, long/short positions and leverage presets.
 - Market orders, pending limit orders, automatic simulated fills, cancellation, closing and order history.
 - Input validation, margin reservation, live simulated P&L and reset.
-- English and Russian, mobile navigation, keyboard focus states, expandable terminal and reduced-motion support.
+- English and Russian, animated mobile navigation, keyboard focus states, expandable terminal, a global animation pause and live reduced-motion support.
 - Self-hosted fonts and a 73 KB WebP hero image. No analytics, cookies, API keys or external runtime requests.
 
 ## Demo boundaries
@@ -47,6 +50,7 @@ src/lib/trading.test.js      Order lifecycle and balance tests
 src/lib/markets.js           Deterministic market fixtures
 src/lib/i18n.js              English and Russian copy
 src/styles.css              Responsive design and animation system
+src/motion/                 Particle canvas, parallax controller and motion styles
 public/assets/              Original production artwork
 docs/design.md              Design direction and fidelity notes
 ```
@@ -62,3 +66,7 @@ The hero is original AI-generated artwork created with the built-in image genera
 Asset prompt: “Extract and recreate only the lime metallic continuous folded infinity ribbon sculpture. Preserve loop geometry, chrome-lime material, black reflections, highlights and blurred motion tail. Landscape 4:3 with modest negative edges on uniform #080a09. No UI, text, logos, badges, charts, coins or borders.”
 
 No Reya logos, proprietary assets, investor claims or performance statistics are reused.
+
+## Motion performance
+
+Motion is implemented with CSS transforms, a bounded Canvas 2D scene and event-driven requestAnimationFrame interpolation; no animation library is required. Pointer movement does not trigger React renders. The pointer loop goes idle when settled. The particle renderer pauses outside the viewport and while the document is hidden, uses fewer points on narrow screens and caps pixel density and drawing rate. The global pause stops decorative CSS/JavaScript effects and simulated price updates. A live system reduced-motion preference disables them too, while keeping all text and controls visible. Mobile layouts disable the cursor halo.
