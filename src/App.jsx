@@ -13,6 +13,10 @@ export default function App() {
 
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
   useEffect(() => {
+    document.documentElement.style.scrollBehavior = paused ? 'auto' : '';
+    return () => { document.documentElement.style.scrollBehavior = ''; };
+  }, [paused]);
+  useEffect(() => {
     const observer = new IntersectionObserver(entries => entries.forEach(entry => {
       if (entry.isIntersecting) { entry.target.classList.add('revealed'); observer.unobserve(entry.target); }
     }), { threshold: 0.12 });
@@ -20,7 +24,7 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
-  const chooseMarket = symbol => { setSymbol(symbol); document.getElementById('terminal').scrollIntoView({ behavior: paused ? 'instant' : 'smooth' }); };
+  const chooseMarket = symbol => { setSymbol(symbol); const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; document.getElementById('terminal').scrollIntoView({ behavior: paused || reducedMotion ? 'instant' : 'smooth' }); };
 
   return <div className={`site ${paused ? 'motion-paused' : ''} ${lang === 'ru' ? 'lang-ru' : ''}`}>
     <a className="skip-link" href="#main">{t.skip}</a>
