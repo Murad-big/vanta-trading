@@ -1,72 +1,64 @@
-# VANTA — Your edge. Never offline.
+# VANTA — сайт с учебным торговым терминалом
 
-A responsive trading website with an original visual identity, motion design, English/Russian UI and a working paper-trading terminal. Inspired by the visual energy of [Reya](https://reya.xyz/), built independently with React and Vite.
+Проект на React: лендинг с анимацией и терминал, в котором можно попробовать работу с заявками на виртуальном балансе. Интерфейс переключается между русским и английским языками.
 
-## Run locally
+![Первый экран: металлическая лента VANTA](public/assets/hero-ribbon.webp)
 
-Requires Node.js 20.19+ or 22.12+ and npm.
+## Что можно попробовать
 
-```sh
+- Выбрать один из четырёх демонстрационных рынков: BTC, ETH, SOL и AVAX.
+- Переключить период свечного графика.
+- Открыть длинную или короткую позицию, выбрать плечо.
+- Создать рыночную или лимитную заявку, отменить её или закрыть позицию.
+- Посмотреть историю, изменение баланса и результат открытых позиций.
+- Развернуть терминал, переключить язык и отключить анимацию.
+
+Начальный виртуальный баланс — 10 000 долларов.
+
+## Локальный запуск
+
+Нужны Node.js 20.19+ или 22.12+ и npm.
+
+```bash
 npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite, normally `http://127.0.0.1:5173`.
+Откройте адрес из вывода Vite, обычно `http://127.0.0.1:5173`.
 
-```sh
-npm test        # Trading calculation and order lifecycle tests
-npm run build  # Production build in dist/
+```bash
+npm test
+npm run build
 npm run preview
 ```
 
-## Included
+Сборка создаётся в `dist/` и подходит для статического хостинга. В GitHub Actions настроены тесты и сборка.
 
-- Original metallic ribbon with pointer-driven perspective, breathing scale and scroll parallax.
-- An animated particle-wave canvas with cursor repulsion and independently floating market symbols.
-- Letter-by-letter heading entrances, staggered section reveals, a cinematic terminal entrance, magnetic buttons, hover light sweeps and a scroll progress indicator.
-- Staggered chart candles, interpolated quote changes, animated positions and order feedback.
-- Four demo markets: BTC, ETH, SOL and AVAX; four chart timeframes with candle inspection.
-- A $10,000 virtual balance, long/short positions and leverage presets.
-- Market orders, pending limit orders, automatic simulated fills, cancellation, closing and order history.
-- Input validation, margin reservation, live simulated P&L and reset.
-- English and Russian, animated mobile navigation, keyboard focus states, expandable terminal, a global animation pause and live reduced-motion support.
-- Self-hosted fonts and a 73 KB WebP hero image. No analytics, cookies, API keys or external runtime requests.
+## Как устроен проект
 
-## Demo boundaries
+| Файл | Назначение |
+| --- | --- |
+| `src/App.jsx` | Страница, язык и управление анимацией |
+| `src/components/Terminal.jsx` | Терминал и позиции |
+| `src/components/Chart.jsx` | Свечной график |
+| `src/components/OrderForm.jsx` | Форма заявки |
+| `src/lib/trading.js` | Расчёты и обработка демонстрационных заявок |
+| `src/lib/trading.test.js` | Тесты торговой логики |
+| `src/lib/i18n.js` | Русские и английские тексты |
+| `src/motion/` | Частицы, параллакс и управление движением |
 
-All market data is generated locally. Prices are not current market quotes. The sample ticker and 24-hour changes are fixed illustrative values; terminal prices move within a small simulated range every four seconds. Pause motion also pauses these updates. Orders, balance and history live in memory and reset when the page reloads. History retains the 50 most recent records; at most 20 positions/orders can be active.
+## Анимация и оформление
 
-There are no deposits, wallets, real trades, accounts or server storage. This deliberately simplified simulator does not model funding, fees, slippage, liquidation, matching-engine priority or exchange risk rules. A production exchange requires backend services, live market feeds and exchange integration.
+Металлическая лента реагирует на положение указателя и прокрутку. На фоне движется поле частиц; графики, кнопки и разделы анимируются средствами CSS, Canvas и JavaScript.
 
-## Structure
+Анимацию можно остановить вручную. Системная настройка уменьшения движения также учитывается. Отрисовка частиц приостанавливается вне экрана и в скрытой вкладке.
 
-```text
-src/App.jsx                Landing page, language and motion controls
-src/components/Terminal.jsx  Trading workspace and position management
-src/components/Chart.jsx     SVG candlestick chart
-src/components/OrderForm.jsx Order inputs and validation feedback
-src/lib/trading.js           Pure demo order engine
-src/lib/trading.test.js      Order lifecycle and balance tests
-src/lib/markets.js           Deterministic market fixtures
-src/lib/i18n.js              English and Russian copy
-src/styles.css              Responsive design and animation system
-src/motion/                 Particle canvas, parallax controller and motion styles
-public/assets/              Original production artwork
-docs/design.md              Design direction and fidelity notes
-```
+Шрифты и изображения хранятся локально. Иллюстрация ленты создана с помощью OpenAI ImageGen. Подробности — в [заметках об оформлении](docs/design.md).
 
-## Deployment
+## Границы демонстрации
 
-The production output is a static website in `dist/`. Relative asset paths support deployment at a domain root or a repository subpath. Deploy `dist/` to any static host. CI runs the tests and production build for pushes and pull requests.
+Все цены генерируются локально и не являются биржевыми котировками. Средства виртуальные; подключения к бирже, кошелькам и реальным платежам нет.
 
-## Artwork
+Баланс, заявки и история хранятся в памяти и сбрасываются при перезагрузке страницы. История ограничена 50 записями, одновременно допускается до 20 позиций и заявок. Остановка анимации также останавливает обновление демонстрационных цен.
 
-The hero is original AI-generated artwork created with the built-in image generation tool. Production file: `public/assets/hero-ribbon.webp`.
-
-Asset prompt: “Extract and recreate only the lime metallic continuous folded infinity ribbon sculpture. Preserve loop geometry, chrome-lime material, black reflections, highlights and blurred motion tail. Landscape 4:3 with modest negative edges on uniform #080a09. No UI, text, logos, badges, charts, coins or borders.”
-
-No Reya logos, proprietary assets, investor claims or performance statistics are reused.
-
-## Motion performance
-
-Motion is implemented with CSS transforms, a bounded Canvas 2D scene and event-driven requestAnimationFrame interpolation; no animation library is required. Pointer movement does not trigger React renders. The pointer loop goes idle when settled. The particle renderer pauses outside the viewport and while the document is hidden, uses fewer points on narrow screens and caps pixel density and drawing rate. The global pause stops decorative CSS/JavaScript effects and simulated price updates. A live system reduced-motion preference disables them too, while keeping all text and controls visible. Mobile layouts disable the cursor halo.
+Симулятор не учитывает комиссии, финансирование, проскальзывание, ликвидацию и правила реальной биржи.

@@ -1,53 +1,46 @@
-# Vanta design direction
+# Оформление VANTA
 
-Original trader website inspired by the visual energy and 24/7 market theme of Reya. No Reya trademarks, logos, investor claims or proprietary assets are reused.
+Визуальная идея — тёмный торговый интерфейс с лаймовыми акцентами и металлической лентой на первом экране. Ориентиром по настроению послужил сайт Reya. Его логотипы, изображения и заявления о финансовых результатах в проект не переносились.
 
-Three generated design references: hero and market strip; trading terminal; editorial feature band and footer. The implementation uses a near-black #080a09 ground, lime #c5fa67, ivory #f4f5ee, gray #8e958d, 1px neutral borders, Manrope typography and IBM Plex Mono numerical labels. Desktop gutter: 4.5vw, content maximum width: 1400px. Headlines: tight tracking and 1.0–1.08 line-height. Buttons: rounded pill for page CTAs, small radius inside the terminal.
+## Цвета и типографика
 
-Hero copy: “Your edge. Never offline.”; “Markets don’t sleep. Neither does your ambition.”; “One workspace. Every opportunity. Always on.” Navigation: Markets, Why Vanta, The terminal, EN, Launch app. CTAs: Start trading, Explore markets.
+- Основной фон — `#080a09`.
+- Акцент — `#c5fa67`.
+- Светлый текст — `#f4f5ee`, вторичный — `#8e958d`.
+- Шрифты — Manrope и IBM Plex Mono, загружаются локально.
+- Максимальная ширина содержимого — 1400 пикселей.
 
-Motion: softly floating original metallic ribbon, rotating circular type, scroll reveals, rolling sample market strip, animated chart changes. A global pause control and prefers-reduced-motion disable nonessential movement.
+Страница состоит из первого экрана, строки демонстрационных рынков, терминала, описания возможностей и завершающего блока. Графики, подписи и формы сделаны кодом; растровым изображением является только лента.
 
-Intentional implementation adjustments: keep the same navigation throughout (the terminal concept invented unrelated navigation); make limit orders, order history, closing and cancelling usable; provide Russian translation, accessible mobile navigation and motion controls. Display demo labels and virtual balances clearly. No real trading, real-time data claim or wallet authorization is implied.
+## Движение
 
-All text, chart candles, order forms and controls are native accessible UI. Only the sculpture is a raster asset. The generated concept screenshots are references, not shipped as website content.
+Лента плавно меняет положение, реагирует на указатель и прокрутку. Поле частиц, свечи графика, появления текста и кнопки используют CSS, Canvas и JavaScript.
 
-## Visual verification
+Движение можно остановить общей кнопкой. Также учитывается `prefers-reduced-motion`; на небольших экранах отключается декоративный след указателя. Частицы не рисуются вне экрана и в скрытой вкладке.
 
-Compared generated section concepts with Browser plugin screenshots, using `view_image` for both reference and implementation. The desktop reference dimensions are 1536×1024. Also inspected the normal desktop viewport, 390×844 mobile and 320×740 mobile. No horizontal page overflow was observed.
+## Терминал
 
-Reference images in this task's generated-image folder:
+График, форма заявки и список позиций объединены в одном рабочем пространстве. На узких экранах меняется количество свечей и расположение элементов, чтобы подписи оставались читаемыми.
 
-- Hero: `exec-7480b17b-537a-4893-ab77-4cb9ec752086.png`
-- Terminal: `exec-a401cccc-fb45-4a44-85cb-9a31d852416e.png`
-- Feature band and footer: `exec-ab92f104-faac-42da-85bb-23bd8b1ccc50.png`
+Переключение языка, мобильная навигация, клавиатурный фокус и выход из развёрнутого терминала по Escape предусмотрены в интерфейсе. Виртуальный баланс и демонстрационный характер цен обозначены явно.
 
-Fidelity ledger:
+## Изображение
 
-| Comparison | Resolution |
-| --- | --- |
-| Three-line headline and primary/secondary CTAs | Copy and ordering preserved; adjusted heading weight, line spacing and CTA size after screenshot comparison. |
-| Near-black/lime palette | Matched tokens; removed visible image-background edges with blending and an edge mask, without recoloring the sculpture. |
-| Metallic ribbon | Used a dedicated generated asset from the concept, optimized to WebP, with gentle transform animation. |
-| Page rhythm | Preserved hero, ticker, terminal, open three-column band, large final CTA and footer; adjusted hero height to reveal the next section. |
-| Terminal anatomy | Preserved chart/order panel/positions arrangement; added functional order lifecycle controls. |
-| Typography and icon treatment | Used self-hosted Manrope and IBM Plex Mono; enlarged desktop editorial type and matched the thin chart, sliders and globe icons. |
-| Responsive chart | Changed SVG coordinate space and candle count on narrow screens instead of shrinking desktop labels to unreadable sizes. |
-| Motion/accessibility | Pause control, system reduced-motion CSS, keyboard navigation, Escape exit and focus containment in expanded terminal. |
+Металлическая лента создана с помощью OpenAI ImageGen и сохранена в `public/assets/hero-ribbon.webp`. Это самостоятельный ресурс, а не скриншот страницы.
 
-Above-the-fold English copy matches the hero reference. Intentional additions are the motion control and Russian translation. The ticker contents move continuously, so their screenshot positions vary. The exact generated font is approximated with Manrope; demo chart data is deterministic and the last candle updates with simulated prices. No material layout or missing-asset issues remained in the verified screens.
+## Проверки при разработке
 
-Functional browser checks covered opening/closing a position, P&L and balance display, pending limit placement/cancellation, invalid amounts, changing markets/timeframes/leverage/side, language switching, mobile navigation, terminal expansion and Escape, and demo reset. A fresh production-preview tab reported no browser warnings or errors. Seven automated order-engine tests passed; the GitHub workflow also passed.
+В отчёте разработки зафиксированы проверки настольной версии и мобильных экранов 390 × 844 и 320 × 740: переполнение страницы, создание и закрытие позиций, лимитные заявки, смена рынка, языка и периода графика, раскрытие терминала и сброс.
 
-## Motion upgrade — September 25, 2026
+Также зафиксированы семь прошедших тестов торговой логики и успешный запуск GitHub Actions. Это результаты соответствующего этапа разработки, а не гарантия для всех устройств.
 
-At the user's request, the existing design gained much more motion inspired by the particle field and depth of the Reya reference. This is an intentional extension of the original static concepts: the brand, palette, content and trading workflow remain intact.
+25 сентября 2026 года дополнительно проверялись анимация, её остановка, системное уменьшение движения и русская мобильная версия. Локальный замер интервалов кадров дал медиану 16,7 мс и 95-й процентиль 17,1 мс по 85 интервалам; эти значения не являются универсальной оценкой производительности.
 
-- The hero combines a moving point wave, local cursor repulsion, a floating ribbon with pointer perspective and scroll-linked transforms, and three independently moving market symbols.
-- Headlines reveal in staggered letters/words. CTAs have magnetic movement and a light sweep. Section entry includes blur/translation; the terminal settles from a perspective tilt.
-- Charts reveal candles in sequence. Quotes interpolate between simulated updates. Positions, feedback and mobile navigation animate on entry.
-- The animation pause remains available at the top of the page, market strip and footer. Both manual pause and emulated system reduced motion produced zero running CSS animations in the browser. With reduced motion, the particle canvas is hidden and headings remain fully visible.
-- Desktop frame sampling in the in-app browser, with the heavy reference tab closed, measured a median 16.7 ms and 95th percentile 17.1 ms across 85 sampled intervals. These are local observations, not a device-independent performance guarantee.
-- Verified the 390px Russian mobile layout, menu open/close, pause, and trading interactions. The pointer halo is disabled on narrow/coarse-pointer screens. Particle drawing also stops offscreen and in hidden documents.
+## Исходный запрос к изображению
 
-No new image assets or external dependencies were needed for this motion upgrade.
+<details>
+<summary>Оригинальный запрос для воспроизводимости</summary>
+
+> “Extract and recreate only the lime metallic continuous folded infinity ribbon sculpture. Preserve loop geometry, chrome-lime material, black reflections, highlights and blurred motion tail. Landscape 4:3 with modest negative edges on uniform #080a09. No UI, text, logos, badges, charts, coins or borders.”
+
+</details>
