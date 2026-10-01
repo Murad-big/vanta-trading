@@ -26,7 +26,7 @@
 
 ## Изображение
 
-Металлическая лента создана с помощью OpenAI ImageGen и сохранена в `public/assets/hero-ribbon.webp`. Это самостоятельный ресурс, а не скриншот страницы.
+Изображение металлической ленты хранится в `public/assets/hero-ribbon.webp`. Это самостоятельный ресурс, а не скриншот страницы.
 
 ## Проверки при разработке
 
@@ -35,12 +35,3 @@
 Также зафиксированы семь прошедших тестов торговой логики и успешный запуск GitHub Actions. Это результаты соответствующего этапа разработки, а не гарантия для всех устройств.
 
 25 сентября 2026 года дополнительно проверялись анимация, её остановка, системное уменьшение движения и русская мобильная версия. Локальный замер интервалов кадров дал медиану 16,7 мс и 95-й процентиль 17,1 мс по 85 интервалам; эти значения не являются универсальной оценкой производительности.
-
-## Исходный запрос к изображению
-
-<details>
-<summary>Оригинальный запрос для воспроизводимости</summary>
-
-> “Extract and recreate only the lime metallic continuous folded infinity ribbon sculpture. Preserve loop geometry, chrome-lime material, black reflections, highlights and blurred motion tail. Landscape 4:3 with modest negative edges on uniform #080a09. No UI, text, logos, badges, charts, coins or borders.”
-
-</details>
